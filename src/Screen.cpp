@@ -31,7 +31,7 @@ bool Screen::init(){
 	m_window = SDL_CreateWindow("Particle Fire Explosion", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SDL_SCREEN_WIDTH, SDL_SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 	if(m_window == NULL){
-		std::cout << SDL_GetError() << std::endl;;
+		std::cout << SDL_GetError();
 		SDL_Quit();
 		return false;
 	}
@@ -52,21 +52,10 @@ bool Screen::init(){
 			return false;
 		}
 	m_buffer = new Uint32[SDL_SCREEN_WIDTH*SDL_SCREEN_HEIGHT];
-	//memset(m_buffer, 255, SDL_SCREEN_WIDTH*SDL_SCREEN_HEIGHT*sizeof(Uint32));
-	//m_buffer[30000] = 0xFFFFFFFF;
-/*	for(int i = 0; i < SDL_SCREEN_WIDTH*SDL_SCREEN_HEIGHT;i++){
-		m_buffer[i] = 0xFFFFFF00;
-	}*/
-	for(int x = 0; x < SDL_SCREEN_WIDTH; ++x){
-		for(int y = 0; y < SDL_SCREEN_HEIGHT; ++y){
-			setPixel(x, y, 255, 255, 255, 255);
-		}
-	}
-	update();
 
 	return true;
-
 }
+
 bool Screen::processEvents(){
 	SDL_Event event;
 	while(SDL_PollEvent(&event)){
@@ -74,6 +63,27 @@ bool Screen::processEvents(){
 			return false;
 		}
 	}
+
+	int elapsed = SDL_GetTicks();
+	unsigned char red = (unsigned char)((1 + sin(elapsed*.0002)) * 128);
+	unsigned char green = (unsigned char)((1 + sin(elapsed*.0001)) * 128);
+	unsigned char blue = (unsigned char)((1 + sin(elapsed*.0003)) * 128);
+
+	//for ( auto particle : *swarm){
+	Particle *particles = swarm.getParticles();
+	Particle *particle;
+	for(int i = 0; i < swarm.N_PARTICLES; i++){
+		particle = &(particles[i]);
+		setPixel(particle->m_xpos, particle->m_ypos, 0, 0, 0, 255);
+	}
+	swarm.updateParticles();
+	for(int i = 0; i < swarm.N_PARTICLES; i++){
+		particle = &(particles[i]);
+		setPixel(particle->m_xpos, particle->m_ypos, red, green, blue, 255);
+	}
+	update();
+	//SDL_Delay(.1);
+
 	return true;
 
 }
@@ -83,7 +93,6 @@ void Screen::close(){
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyTexture(m_texture);
 	SDL_DestroyWindow(m_window);
-
 	SDL_Quit();
 
 }
@@ -93,7 +102,7 @@ void Screen::update(){
 	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
 	SDL_RenderPresent(m_renderer);
 }
-void Screen::setPixel(int x, int y, Uint8 alpha, Uint8 red, Uint8 green, Uint8 blue){
+void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha){
 	Uint32 color = 0;
 
 	color += red;

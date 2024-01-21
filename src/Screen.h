@@ -8,7 +8,11 @@
 #ifndef SCREEN_H_
 #define SCREEN_H_
 #include <iostream>
+#include <math.h>
+#include <stdlib.h>
 #include <SDL.h>
+
+#include "Swarm.h"
 
 namespace mrh {
 
@@ -18,6 +22,7 @@ private:
 	SDL_Renderer *m_renderer;
 	SDL_Texture *m_texture;
 	Uint32 *m_buffer;
+	Swarm swarm;
 public:
 	const static int SDL_SCREEN_WIDTH = 800;
 	const static int SDL_SCREEN_HEIGHT = 600;
