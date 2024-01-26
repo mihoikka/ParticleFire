@@ -6,39 +6,27 @@
  */
 
 #include "Particle.h"
+#include <math.h>
 #include <iostream>
 namespace mrh {
 
-Particle::Particle() {
-	/*m_x = (2.0*rand()/RAND_MAX)-1;
-	m_y = (2.0*rand()/RAND_MAX)-1;*/
-	//m_x = (1.0*rand())/RAND_MAX;
-	//m_y = (1.0*rand())/RAND_MAX;
-	m_xpos = (1.0*rand())/RAND_MAX*SDL_SCREEN_WIDTH;
-	m_ypos = (1.0*rand())/RAND_MAX*SDL_SCREEN_HEIGHT;
-	m_xvelocity = (1.0*rand())/RAND_MAX;
-	m_yvelocity = (1.0*rand())/RAND_MAX;
-	// TODO Auto-generated constructor stub
-
+Particle::Particle(): m_xpos(SDL_SCREEN_WIDTH/2), m_ypos(SDL_SCREEN_HEIGHT/2) {
+	m_direction = (2.0 * M_PI * rand())/RAND_MAX;
+	m_speed = (0.00005 * rand())/RAND_MAX;
+	m_int_xpos = (int)m_xpos;
+	m_int_ypos = (int)m_ypos;
 }
 
 Particle::~Particle() {
-	// TODO Auto-generated destructor stub
 }
 
-void Particle::updatePos(){
-	m_xpos += m_xvelocity;
-	m_ypos += m_yvelocity;
-	if(m_xpos >= SDL_SCREEN_WIDTH || m_xpos <= 0 ){
-		m_xvelocity *= -1;
-		m_xpos += m_xvelocity;
-	}
-	if(m_ypos >= SDL_SCREEN_HEIGHT || m_ypos <= 0 ){
-		m_yvelocity *= -1;
-		m_ypos += m_yvelocity;
-	}
-
-	m_xvelocity += ((1.0*rand())/RAND_MAX)-0.5;
-	m_yvelocity += ((1.0*rand())/RAND_MAX)-0.5;
+void Particle::updatePos(int interval){
+	double x_speed = m_speed * cos(m_direction);
+	double y_speed = m_speed * sin(m_direction);
+	/*std::cout << std::endl;*/
+	m_xpos += (x_speed * SDL_SCREEN_WIDTH * interval);
+	m_ypos += (y_speed * SDL_SCREEN_WIDTH * interval);
+	m_int_xpos = (int)m_xpos;
+	m_int_ypos = (int)m_ypos;
 }
 } /* namespace mrh */

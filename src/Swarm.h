@@ -13,9 +13,10 @@ namespace mrh {
 
 class Swarm {
 public:
-	const static int N_PARTICLES = 1000;
+	const static int N_PARTICLES = 5000;
 private:
 	Particle * m_swarm;
+	int lastTime;
 public:
 	Swarm();
 	virtual ~Swarm();
@@ -25,7 +26,7 @@ public:
 	}
 	Particle *begin(){return m_swarm;};
 	Particle *end(){ return m_swarm + N_PARTICLES;};
-	void updateParticles();
+	void updateParticles(int elapsed);
 
 };
 

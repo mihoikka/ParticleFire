@@ -10,6 +10,7 @@
 #include <iostream>
 #include <math.h>
 #include <stdlib.h>
+#include <cstring>
 #include <SDL.h>
 
 #include "Swarm.h"
@@ -22,6 +23,7 @@ private:
 	SDL_Renderer *m_renderer;
 	SDL_Texture *m_texture;
 	Uint32 *m_buffer;
+	Uint32 *m_buffer_blur;
 	Swarm swarm;
 public:
 	const static int SDL_SCREEN_WIDTH = 800;
@@ -33,6 +35,9 @@ public:
 	void close();
 	void update();
 	void setPixel(int x, int y, Uint8 alpha, Uint8 red, Uint8 green, Uint8 blue);
+	Uint32 getPixel(int pixelX, int pixelY, int componentRequested);
+	void boxBlur();
+	void clear();
 
 
 };

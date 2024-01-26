@@ -25,12 +25,23 @@ int main(int, char **) { //int WinMain() {
 		std::cout << SDL_GetError() << std::endl;
 	}
 	else{
-		while(true){
+		/*auto start = std::chrono::system_clock::now();*/
+
+		while (true){
 			if(screen.processEvents() == false){
 				screen.close();
 				break;
 			}
 		}
+		// Some computation here
+		/*auto end = std::chrono::system_clock::now();
+
+		std::chrono::duration<double> elapsed_seconds = end-start;
+		std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+
+		std::cout << "finished computation at " << std::ctime(&end_time)
+				  << "elapsed time: " << elapsed_seconds.count() << "s"
+				  << std::endl;*/
 	}
 
 	return 0;

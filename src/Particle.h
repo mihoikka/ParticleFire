@@ -14,16 +14,18 @@ namespace mrh {
 
 struct Particle {
 private:
-	double m_xvelocity;
-	double m_yvelocity;
+	double m_speed;
+	double m_direction;
 	const static int SDL_SCREEN_WIDTH = 800;
 	const static int SDL_SCREEN_HEIGHT = 600;
 public:
 	//double m_x;
 	//double m_y;
-	int m_xpos;
-	int m_ypos;
-	void updatePos();
+	double m_xpos;
+	double m_ypos;
+	int m_int_xpos;
+	int m_int_ypos;
+	void updatePos(int interval);
 
 	Particle();
 	virtual ~Particle();
