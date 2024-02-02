@@ -18,9 +18,9 @@ private:
 	double m_direction;
 	const static int SDL_SCREEN_WIDTH = 800;
 	const static int SDL_SCREEN_HEIGHT = 600;
+private:
+	void reInit();
 public:
-	//double m_x;
-	//double m_y;
 	double m_xpos;
 	double m_ypos;
 	int m_int_xpos;

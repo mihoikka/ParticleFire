@@ -14,11 +14,9 @@ Screen::Screen():
 		m_renderer(NULL),
 		m_texture(NULL),
 		m_buffer(NULL) {
-	// TODO Auto-generated constructor stub
 }
 
 Screen::~Screen(){
-	// TODO Auto-generated destructor stub
 }
 
 
@@ -26,7 +24,6 @@ bool Screen::init(){
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0){
 		return false;
-		//return 1;
 	}
 	m_window = SDL_CreateWindow("Particle Fire Explosion", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SDL_SCREEN_WIDTH, SDL_SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
@@ -70,14 +67,8 @@ bool Screen::processEvents(){
 	unsigned char green = (unsigned char)((1 + sin(elapsed*.0001)) * 128);
 	unsigned char blue = (unsigned char)((1 + sin(elapsed*.0003)) * 128);
 
-	//for ( auto particle : *swarm){
 	Particle *particles = swarm.getParticles();
 	Particle *particle;
-	/*for(int i = 0; i < swarm.N_PARTICLES; i++){
-		particle = &(particles[i]);
-		setPixel(particle->m_xpos, particle->m_ypos, 0, 0, 0, 255);
-	}*/
-	//clear();
 	swarm.updateParticles(elapsed);
 	for(int i = 0; i < swarm.N_PARTICLES; i++){
 		particle = &(particles[i]);
@@ -85,7 +76,6 @@ bool Screen::processEvents(){
 	}
 	boxBlur();
 	update();
-	//SDL_Delay(.1);
 
 	return true;
 
@@ -166,7 +156,6 @@ void Screen::boxBlur(){
 				setPixel(x,y,red_blurred,green_blurred,blue_blurred, 255);
 			}
 		}
-	//m_buffer = m_buffer_blur;
 	m_buffer_blur = temp;
 }
 

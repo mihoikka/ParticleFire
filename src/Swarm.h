@@ -20,7 +20,6 @@ private:
 public:
 	Swarm();
 	virtual ~Swarm();
-	//const Particle * const getParticles(){
 	Particle * getParticles(){
 		return m_swarm;
 	}

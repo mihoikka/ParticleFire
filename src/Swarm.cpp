@@ -11,19 +11,17 @@
 namespace mrh {
 
 Swarm::Swarm():lastTime(0) {
-	// TODO Auto-generated constructor stub
 	m_swarm = new Particle[N_PARTICLES];
 }
 
 Swarm::~Swarm() {
-	// TODO Auto-generated destructor stub
 	delete [] m_swarm;
 }
 void Swarm::updateParticles(int elapsed){
 	int interval = elapsed - lastTime;
 	lastTime = elapsed;
-    std::cout<<"Elapsed time in ms: " << elapsed<<std::endl;
-	std::cout<<"Interval between frames in ms: " << interval<<std::endl;
+    /*std::cout<<"Elapsed time in ms: " << elapsed<<std::endl;
+	std::cout<<"Interval between frames in ms: " << interval<<std::endl;*/
 	for(int i = 0; i < N_PARTICLES; i++){
 		m_swarm[i].updatePos(interval);
 	}
